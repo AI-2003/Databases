@@ -1,0 +1,749 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CadComerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cadena">
+          <Key>
+            <PropertyRef Name="RFC" />
+          </Key>
+          <Property Name="RFC" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="Nombre" Type="char" MaxLength="20" />
+          <Property Name="Domicilio" Type="char" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Catálogo">
+          <Key>
+            <PropertyRef Name="IdP" />
+            <PropertyRef Name="RFC" />
+          </Key>
+          <Property Name="IdP" Type="int" Nullable="false" />
+          <Property Name="RFC" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="Precio" Type="real" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="IdC" />
+          </Key>
+          <Property Name="IdC" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="char" MaxLength="20" />
+          <Property Name="Domicilio" Type="char" MaxLength="30" />
+          <Property Name="Telefono" Type="int" />
+        </EntityType>
+        <EntityType Name="Detalle">
+          <Key>
+            <PropertyRef Name="IdP" />
+            <PropertyRef Name="IdF" />
+          </Key>
+          <Property Name="IdP" Type="int" Nullable="false" />
+          <Property Name="IdF" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="int" />
+        </EntityType>
+        <EntityType Name="Factura">
+          <Key>
+            <PropertyRef Name="IdF" />
+          </Key>
+          <Property Name="IdF" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="date" />
+          <Property Name="MontoT" Type="real" />
+          <Property Name="Saldo" Type="real" />
+          <Property Name="IdC" Type="int" />
+          <Property Name="IdS" Type="int" />
+        </EntityType>
+        <EntityType Name="Inventario">
+          <Key>
+            <PropertyRef Name="IdP" />
+            <PropertyRef Name="IdS" />
+          </Key>
+          <Property Name="IdP" Type="int" Nullable="false" />
+          <Property Name="IdS" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="int" />
+        </EntityType>
+        <EntityType Name="Pago">
+          <Key>
+            <PropertyRef Name="IdPago" />
+            <PropertyRef Name="IdF" />
+          </Key>
+          <Property Name="IdPago" Type="int" Nullable="false" />
+          <Property Name="IdF" Type="int" Nullable="false" />
+          <Property Name="Monto" Type="real" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="IdP" />
+          </Key>
+          <Property Name="IdP" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="char" MaxLength="20" />
+          <Property Name="Marca" Type="char" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Registro">
+          <Key>
+            <PropertyRef Name="RFC" />
+            <PropertyRef Name="IdC" />
+          </Key>
+          <Property Name="RFC" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="IdC" Type="int" Nullable="false" />
+          <Property Name="LimCred" Type="real" />
+        </EntityType>
+        <EntityType Name="Sucursal">
+          <Key>
+            <PropertyRef Name="IdS" />
+          </Key>
+          <Property Name="IdS" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="char" MaxLength="20" />
+          <Property Name="Domicilio" Type="char" MaxLength="30" />
+          <Property Name="RFC" Type="char" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK__Catálogo__IdP__33D4B598">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Catálogo" Type="Self.Catálogo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="IdP" />
+            </Principal>
+            <Dependent Role="Catálogo">
+              <PropertyRef Name="IdP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Catálogo__RFC__34C8D9D1">
+          <End Role="Cadena" Type="Self.Cadena" Multiplicity="1" />
+          <End Role="Catálogo" Type="Self.Catálogo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cadena">
+              <PropertyRef Name="RFC" />
+            </Principal>
+            <Dependent Role="Catálogo">
+              <PropertyRef Name="RFC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Detalle__IdF__3C69FB99">
+          <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
+          <End Role="Detalle" Type="Self.Detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="IdF" />
+            </Principal>
+            <Dependent Role="Detalle">
+              <PropertyRef Name="IdF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Detalle__IdP__3B75D760">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Detalle" Type="Self.Detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="IdP" />
+            </Principal>
+            <Dependent Role="Detalle">
+              <PropertyRef Name="IdP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__IdC__2D27B809">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="IdC" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="IdC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__IdS__2E1BDC42">
+          <End Role="Sucursal" Type="Self.Sucursal" Multiplicity="0..1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sucursal">
+              <PropertyRef Name="IdS" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="IdS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inventario__IdP__37A5467C">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Inventario" Type="Self.Inventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="IdP" />
+            </Principal>
+            <Dependent Role="Inventario">
+              <PropertyRef Name="IdP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inventario__IdS__38996AB5">
+          <End Role="Sucursal" Type="Self.Sucursal" Multiplicity="1" />
+          <End Role="Inventario" Type="Self.Inventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sucursal">
+              <PropertyRef Name="IdS" />
+            </Principal>
+            <Dependent Role="Inventario">
+              <PropertyRef Name="IdS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pago__IdF__30F848ED">
+          <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
+          <End Role="Pago" Type="Self.Pago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="IdF" />
+            </Principal>
+            <Dependent Role="Pago">
+              <PropertyRef Name="IdF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Registro__IdC__403A8C7D">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Registro" Type="Self.Registro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="IdC" />
+            </Principal>
+            <Dependent Role="Registro">
+              <PropertyRef Name="IdC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Registro__RFC__3F466844">
+          <End Role="Cadena" Type="Self.Cadena" Multiplicity="1" />
+          <End Role="Registro" Type="Self.Registro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cadena">
+              <PropertyRef Name="RFC" />
+            </Principal>
+            <Dependent Role="Registro">
+              <PropertyRef Name="RFC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sucursal__RFC__267ABA7A">
+          <End Role="Cadena" Type="Self.Cadena" Multiplicity="0..1" />
+          <End Role="Sucursal" Type="Self.Sucursal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cadena">
+              <PropertyRef Name="RFC" />
+            </Principal>
+            <Dependent Role="Sucursal">
+              <PropertyRef Name="RFC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CadComerModelStoreContainer">
+          <EntitySet Name="Cadena" EntityType="Self.Cadena" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Catálogo" EntityType="Self.Catálogo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Detalle" EntityType="Self.Detalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Factura" EntityType="Self.Factura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Inventario" EntityType="Self.Inventario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pago" EntityType="Self.Pago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Registro" EntityType="Self.Registro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sucursal" EntityType="Self.Sucursal" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Catálogo__IdP__33D4B598" Association="Self.FK__Catálogo__IdP__33D4B598">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Catálogo" EntitySet="Catálogo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Catálogo__RFC__34C8D9D1" Association="Self.FK__Catálogo__RFC__34C8D9D1">
+            <End Role="Cadena" EntitySet="Cadena" />
+            <End Role="Catálogo" EntitySet="Catálogo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Detalle__IdF__3C69FB99" Association="Self.FK__Detalle__IdF__3C69FB99">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="Detalle" EntitySet="Detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Detalle__IdP__3B75D760" Association="Self.FK__Detalle__IdP__3B75D760">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Detalle" EntitySet="Detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__IdC__2D27B809" Association="Self.FK__Factura__IdC__2D27B809">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__IdS__2E1BDC42" Association="Self.FK__Factura__IdS__2E1BDC42">
+            <End Role="Sucursal" EntitySet="Sucursal" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inventario__IdP__37A5467C" Association="Self.FK__Inventario__IdP__37A5467C">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Inventario" EntitySet="Inventario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inventario__IdS__38996AB5" Association="Self.FK__Inventario__IdS__38996AB5">
+            <End Role="Sucursal" EntitySet="Sucursal" />
+            <End Role="Inventario" EntitySet="Inventario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pago__IdF__30F848ED" Association="Self.FK__Pago__IdF__30F848ED">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="Pago" EntitySet="Pago" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Registro__IdC__403A8C7D" Association="Self.FK__Registro__IdC__403A8C7D">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Registro" EntitySet="Registro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Registro__RFC__3F466844" Association="Self.FK__Registro__RFC__3F466844">
+            <End Role="Cadena" EntitySet="Cadena" />
+            <End Role="Registro" EntitySet="Registro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sucursal__RFC__267ABA7A" Association="Self.FK__Sucursal__RFC__267ABA7A">
+            <End Role="Cadena" EntitySet="Cadena" />
+            <End Role="Sucursal" EntitySet="Sucursal" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CadComerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cadena">
+          <Key>
+            <PropertyRef Name="RFC" />
+          </Key>
+          <Property Name="RFC" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="Domicilio" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Catálogo" Relationship="Self.FK__Catálogo__RFC__34C8D9D1" FromRole="Cadena" ToRole="Catálogo" />
+          <NavigationProperty Name="Registro" Relationship="Self.FK__Registro__RFC__3F466844" FromRole="Cadena" ToRole="Registro" />
+          <NavigationProperty Name="Sucursal" Relationship="Self.FK__Sucursal__RFC__267ABA7A" FromRole="Cadena" ToRole="Sucursal" />
+        </EntityType>
+        <EntityType Name="Catálogo">
+          <Key>
+            <PropertyRef Name="IdP" />
+            <PropertyRef Name="RFC" />
+          </Key>
+          <Property Name="IdP" Type="Int32" Nullable="false" />
+          <Property Name="RFC" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Precio" Type="Single" />
+          <NavigationProperty Name="Cadena" Relationship="Self.FK__Catálogo__RFC__34C8D9D1" FromRole="Catálogo" ToRole="Cadena" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK__Catálogo__IdP__33D4B598" FromRole="Catálogo" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="IdC" />
+          </Key>
+          <Property Name="IdC" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="Domicilio" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="Telefono" Type="Int32" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK__Factura__IdC__2D27B809" FromRole="Cliente" ToRole="Factura" />
+          <NavigationProperty Name="Registro" Relationship="Self.FK__Registro__IdC__403A8C7D" FromRole="Cliente" ToRole="Registro" />
+        </EntityType>
+        <EntityType Name="Detalle">
+          <Key>
+            <PropertyRef Name="IdP" />
+            <PropertyRef Name="IdF" />
+          </Key>
+          <Property Name="IdP" Type="Int32" Nullable="false" />
+          <Property Name="IdF" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK__Detalle__IdF__3C69FB99" FromRole="Detalle" ToRole="Factura" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK__Detalle__IdP__3B75D760" FromRole="Detalle" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Factura">
+          <Key>
+            <PropertyRef Name="IdF" />
+          </Key>
+          <Property Name="IdF" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <Property Name="MontoT" Type="Single" />
+          <Property Name="Saldo" Type="Single" />
+          <Property Name="IdC" Type="Int32" />
+          <Property Name="IdS" Type="Int32" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__Factura__IdC__2D27B809" FromRole="Factura" ToRole="Cliente" />
+          <NavigationProperty Name="Detalle" Relationship="Self.FK__Detalle__IdF__3C69FB99" FromRole="Factura" ToRole="Detalle" />
+          <NavigationProperty Name="Sucursal" Relationship="Self.FK__Factura__IdS__2E1BDC42" FromRole="Factura" ToRole="Sucursal" />
+          <NavigationProperty Name="Pago" Relationship="Self.FK__Pago__IdF__30F848ED" FromRole="Factura" ToRole="Pago" />
+        </EntityType>
+        <EntityType Name="Inventario">
+          <Key>
+            <PropertyRef Name="IdP" />
+            <PropertyRef Name="IdS" />
+          </Key>
+          <Property Name="IdP" Type="Int32" Nullable="false" />
+          <Property Name="IdS" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK__Inventario__IdP__37A5467C" FromRole="Inventario" ToRole="Producto" />
+          <NavigationProperty Name="Sucursal" Relationship="Self.FK__Inventario__IdS__38996AB5" FromRole="Inventario" ToRole="Sucursal" />
+        </EntityType>
+        <EntityType Name="Pago">
+          <Key>
+            <PropertyRef Name="IdPago" />
+            <PropertyRef Name="IdF" />
+          </Key>
+          <Property Name="IdPago" Type="Int32" Nullable="false" />
+          <Property Name="IdF" Type="Int32" Nullable="false" />
+          <Property Name="Monto" Type="Single" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK__Pago__IdF__30F848ED" FromRole="Pago" ToRole="Factura" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="IdP" />
+          </Key>
+          <Property Name="IdP" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="Marca" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Catálogo" Relationship="Self.FK__Catálogo__IdP__33D4B598" FromRole="Producto" ToRole="Catálogo" />
+          <NavigationProperty Name="Detalle" Relationship="Self.FK__Detalle__IdP__3B75D760" FromRole="Producto" ToRole="Detalle" />
+          <NavigationProperty Name="Inventario" Relationship="Self.FK__Inventario__IdP__37A5467C" FromRole="Producto" ToRole="Inventario" />
+        </EntityType>
+        <EntityType Name="Registro">
+          <Key>
+            <PropertyRef Name="RFC" />
+            <PropertyRef Name="IdC" />
+          </Key>
+          <Property Name="RFC" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IdC" Type="Int32" Nullable="false" />
+          <Property Name="LimCred" Type="Single" />
+          <NavigationProperty Name="Cadena" Relationship="Self.FK__Registro__RFC__3F466844" FromRole="Registro" ToRole="Cadena" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__Registro__IdC__403A8C7D" FromRole="Registro" ToRole="Cliente" />
+        </EntityType>
+        <EntityType Name="Sucursal">
+          <Key>
+            <PropertyRef Name="IdS" />
+          </Key>
+          <Property Name="IdS" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="Domicilio" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="RFC" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Cadena" Relationship="Self.FK__Sucursal__RFC__267ABA7A" FromRole="Sucursal" ToRole="Cadena" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK__Factura__IdS__2E1BDC42" FromRole="Sucursal" ToRole="Factura" />
+          <NavigationProperty Name="Inventario" Relationship="Self.FK__Inventario__IdS__38996AB5" FromRole="Sucursal" ToRole="Inventario" />
+        </EntityType>
+        <Association Name="FK__Catálogo__RFC__34C8D9D1">
+          <End Role="Cadena" Type="Self.Cadena" Multiplicity="1" />
+          <End Role="Catálogo" Type="Self.Catálogo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cadena">
+              <PropertyRef Name="RFC" />
+            </Principal>
+            <Dependent Role="Catálogo">
+              <PropertyRef Name="RFC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Registro__RFC__3F466844">
+          <End Role="Cadena" Type="Self.Cadena" Multiplicity="1" />
+          <End Role="Registro" Type="Self.Registro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cadena">
+              <PropertyRef Name="RFC" />
+            </Principal>
+            <Dependent Role="Registro">
+              <PropertyRef Name="RFC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sucursal__RFC__267ABA7A">
+          <End Role="Cadena" Type="Self.Cadena" Multiplicity="0..1" />
+          <End Role="Sucursal" Type="Self.Sucursal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cadena">
+              <PropertyRef Name="RFC" />
+            </Principal>
+            <Dependent Role="Sucursal">
+              <PropertyRef Name="RFC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Catálogo__IdP__33D4B598">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Catálogo" Type="Self.Catálogo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="IdP" />
+            </Principal>
+            <Dependent Role="Catálogo">
+              <PropertyRef Name="IdP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__IdC__2D27B809">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="IdC" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="IdC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Registro__IdC__403A8C7D">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Registro" Type="Self.Registro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="IdC" />
+            </Principal>
+            <Dependent Role="Registro">
+              <PropertyRef Name="IdC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Detalle__IdF__3C69FB99">
+          <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
+          <End Role="Detalle" Type="Self.Detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="IdF" />
+            </Principal>
+            <Dependent Role="Detalle">
+              <PropertyRef Name="IdF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Detalle__IdP__3B75D760">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Detalle" Type="Self.Detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="IdP" />
+            </Principal>
+            <Dependent Role="Detalle">
+              <PropertyRef Name="IdP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__IdS__2E1BDC42">
+          <End Role="Sucursal" Type="Self.Sucursal" Multiplicity="0..1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sucursal">
+              <PropertyRef Name="IdS" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="IdS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pago__IdF__30F848ED">
+          <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
+          <End Role="Pago" Type="Self.Pago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="IdF" />
+            </Principal>
+            <Dependent Role="Pago">
+              <PropertyRef Name="IdF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inventario__IdP__37A5467C">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Inventario" Type="Self.Inventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="IdP" />
+            </Principal>
+            <Dependent Role="Inventario">
+              <PropertyRef Name="IdP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inventario__IdS__38996AB5">
+          <End Role="Sucursal" Type="Self.Sucursal" Multiplicity="1" />
+          <End Role="Inventario" Type="Self.Inventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sucursal">
+              <PropertyRef Name="IdS" />
+            </Principal>
+            <Dependent Role="Inventario">
+              <PropertyRef Name="IdS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CadComerEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cadena" EntityType="Self.Cadena" />
+          <EntitySet Name="Catálogo" EntityType="Self.Catálogo" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <EntitySet Name="Detalle" EntityType="Self.Detalle" />
+          <EntitySet Name="Factura" EntityType="Self.Factura" />
+          <EntitySet Name="Inventario" EntityType="Self.Inventario" />
+          <EntitySet Name="Pago" EntityType="Self.Pago" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" />
+          <EntitySet Name="Registro" EntityType="Self.Registro" />
+          <EntitySet Name="Sucursal" EntityType="Self.Sucursal" />
+          <AssociationSet Name="FK__Catálogo__RFC__34C8D9D1" Association="Self.FK__Catálogo__RFC__34C8D9D1">
+            <End Role="Cadena" EntitySet="Cadena" />
+            <End Role="Catálogo" EntitySet="Catálogo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Registro__RFC__3F466844" Association="Self.FK__Registro__RFC__3F466844">
+            <End Role="Cadena" EntitySet="Cadena" />
+            <End Role="Registro" EntitySet="Registro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sucursal__RFC__267ABA7A" Association="Self.FK__Sucursal__RFC__267ABA7A">
+            <End Role="Cadena" EntitySet="Cadena" />
+            <End Role="Sucursal" EntitySet="Sucursal" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Catálogo__IdP__33D4B598" Association="Self.FK__Catálogo__IdP__33D4B598">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Catálogo" EntitySet="Catálogo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__IdC__2D27B809" Association="Self.FK__Factura__IdC__2D27B809">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Registro__IdC__403A8C7D" Association="Self.FK__Registro__IdC__403A8C7D">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Registro" EntitySet="Registro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Detalle__IdF__3C69FB99" Association="Self.FK__Detalle__IdF__3C69FB99">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="Detalle" EntitySet="Detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Detalle__IdP__3B75D760" Association="Self.FK__Detalle__IdP__3B75D760">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Detalle" EntitySet="Detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__IdS__2E1BDC42" Association="Self.FK__Factura__IdS__2E1BDC42">
+            <End Role="Sucursal" EntitySet="Sucursal" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pago__IdF__30F848ED" Association="Self.FK__Pago__IdF__30F848ED">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="Pago" EntitySet="Pago" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inventario__IdP__37A5467C" Association="Self.FK__Inventario__IdP__37A5467C">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Inventario" EntitySet="Inventario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inventario__IdS__38996AB5" Association="Self.FK__Inventario__IdS__38996AB5">
+            <End Role="Sucursal" EntitySet="Sucursal" />
+            <End Role="Inventario" EntitySet="Inventario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CadComerModelStoreContainer" CdmEntityContainer="CadComerEntities1">
+          <EntitySetMapping Name="Cadena">
+            <EntityTypeMapping TypeName="CadComerModel.Cadena">
+              <MappingFragment StoreEntitySet="Cadena">
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Domicilio" ColumnName="Domicilio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Catálogo">
+            <EntityTypeMapping TypeName="CadComerModel.Catálogo">
+              <MappingFragment StoreEntitySet="Catálogo">
+                <ScalarProperty Name="IdP" ColumnName="IdP" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="CadComerModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="IdC" ColumnName="IdC" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Domicilio" ColumnName="Domicilio" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Detalle">
+            <EntityTypeMapping TypeName="CadComerModel.Detalle">
+              <MappingFragment StoreEntitySet="Detalle">
+                <ScalarProperty Name="IdP" ColumnName="IdP" />
+                <ScalarProperty Name="IdF" ColumnName="IdF" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Factura">
+            <EntityTypeMapping TypeName="CadComerModel.Factura">
+              <MappingFragment StoreEntitySet="Factura">
+                <ScalarProperty Name="IdF" ColumnName="IdF" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="MontoT" ColumnName="MontoT" />
+                <ScalarProperty Name="Saldo" ColumnName="Saldo" />
+                <ScalarProperty Name="IdC" ColumnName="IdC" />
+                <ScalarProperty Name="IdS" ColumnName="IdS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inventario">
+            <EntityTypeMapping TypeName="CadComerModel.Inventario">
+              <MappingFragment StoreEntitySet="Inventario">
+                <ScalarProperty Name="IdP" ColumnName="IdP" />
+                <ScalarProperty Name="IdS" ColumnName="IdS" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pago">
+            <EntityTypeMapping TypeName="CadComerModel.Pago">
+              <MappingFragment StoreEntitySet="Pago">
+                <ScalarProperty Name="IdPago" ColumnName="IdPago" />
+                <ScalarProperty Name="IdF" ColumnName="IdF" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="CadComerModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="IdP" ColumnName="IdP" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Marca" ColumnName="Marca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Registro">
+            <EntityTypeMapping TypeName="CadComerModel.Registro">
+              <MappingFragment StoreEntitySet="Registro">
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="IdC" ColumnName="IdC" />
+                <ScalarProperty Name="LimCred" ColumnName="LimCred" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sucursal">
+            <EntityTypeMapping TypeName="CadComerModel.Sucursal">
+              <MappingFragment StoreEntitySet="Sucursal">
+                <ScalarProperty Name="IdS" ColumnName="IdS" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Domicilio" ColumnName="Domicilio" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
