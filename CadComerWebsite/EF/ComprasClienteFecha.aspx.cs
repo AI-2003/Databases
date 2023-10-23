@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace CadComerWebsite.EF
 {
-    public partial class ConsultaComprasDesde : System.Web.UI.Page
+    public partial class ComprasClienteFecha : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

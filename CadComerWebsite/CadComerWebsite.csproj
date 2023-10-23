@@ -76,10 +76,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
-    <Content Include="Default.css" />
-    <Content Include="EF\ConsultaComprasDesde.aspx" />
+    <Content Include="EF\ComprasClienteFecha.aspx" />
     <Content Include="EF\ConsultasTarea4.aspx" />
-    <Content Include="EF\RegistrarCompra.aspx" />
+    <Content Include="EF\RegistroCompra.aspx" />
     <Content Include="Modelo_CadComer.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Modelo_CadComer.edmx</DependentUpon>
@@ -112,12 +111,12 @@
     <Compile Include="Detalle.cs">
       <DependentUpon>Modelo_CadComer.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\ConsultaComprasDesde.aspx.cs">
-      <DependentUpon>ConsultaComprasDesde.aspx</DependentUpon>
+    <Compile Include="EF\ComprasClienteFecha.aspx.cs">
+      <DependentUpon>ComprasClienteFecha.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="EF\ConsultaComprasDesde.aspx.designer.cs">
-      <DependentUpon>ConsultaComprasDesde.aspx</DependentUpon>
+    <Compile Include="EF\ComprasClienteFecha.aspx.designer.cs">
+      <DependentUpon>ComprasClienteFecha.aspx</DependentUpon>
     </Compile>
     <Compile Include="EF\ConsultasTarea4.aspx.cs">
       <DependentUpon>ConsultasTarea4.aspx</DependentUpon>
@@ -126,12 +125,12 @@
     <Compile Include="EF\ConsultasTarea4.aspx.designer.cs">
       <DependentUpon>ConsultasTarea4.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EF\RegistrarCompra.aspx.cs">
-      <DependentUpon>RegistrarCompra.aspx</DependentUpon>
+    <Compile Include="EF\RegistroCompra.aspx.cs">
+      <DependentUpon>RegistroCompra.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="EF\RegistrarCompra.aspx.designer.cs">
-      <DependentUpon>RegistrarCompra.aspx</DependentUpon>
+    <Compile Include="EF\RegistroCompra.aspx.designer.cs">
+      <DependentUpon>RegistroCompra.aspx</DependentUpon>
     </Compile>
     <Compile Include="Factura.cs">
       <DependentUpon>Modelo_CadComer.tt</DependentUpon>
