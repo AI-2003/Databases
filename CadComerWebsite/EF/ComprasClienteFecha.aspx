@@ -20,7 +20,7 @@
             <asp:Label ID="MsjErr" runat="server" Font-Size="Large" ForeColor="#618264" style="z-index: 1; left: 220px; top: 489px; position: absolute"></asp:Label>
             <asp:Label ID="LblFecha" runat="server" ForeColor="#618264" style="z-index: 1; left: 90px; top: 243px; position: absolute" Text="Fecha: "></asp:Label>
             <asp:Calendar ID="ClndrFecha" runat="server" ForeColor="#618264" style="z-index: 1; left: 163px; top: 239px; position: absolute; height: 188px; width: 259px"></asp:Calendar>
-            <asp:GridView ID="GridView1" runat="server" ForeColor="#618264" style="z-index: 1; left: 696px; top: 198px; position: absolute; height: 133px; width: 187px">
+            <asp:GridView ID="GrdCompras" runat="server" EmptyDataText="No hay datos" ForeColor="#618264" style="z-index: 1; left: 696px; top: 198px; position: absolute; height: 133px; width: 187px">
             </asp:GridView>
         </div>
     </form>

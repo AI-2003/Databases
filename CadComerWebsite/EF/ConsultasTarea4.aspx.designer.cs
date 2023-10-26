@@ -42,15 +42,6 @@ namespace CadComerWebsite.EF
         protected global::System.Web.UI.WebControls.Label Title;
 
         /// <summary>
-        /// Control NumConsARealizar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label NumConsARealizar;
-
-        /// <summary>
         /// Control BtnCons1.
         /// </summary>
         /// <remarks>
@@ -177,12 +168,12 @@ namespace CadComerWebsite.EF
         protected global::System.Web.UI.WebControls.Button BtnEject;
 
         /// <summary>
-        /// Control ConsPorRealizar2.
+        /// Control RsltTxt.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ConsPorRealizar2;
+        protected global::System.Web.UI.WebControls.Label RsltTxt;
     }
 }

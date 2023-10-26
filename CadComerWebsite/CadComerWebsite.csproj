@@ -120,7 +120,6 @@
     </Compile>
     <Compile Include="EF\ConsultasTarea4.aspx.cs">
       <DependentUpon>ConsultasTarea4.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="EF\ConsultasTarea4.aspx.designer.cs">
       <DependentUpon>ConsultasTarea4.aspx</DependentUpon>
